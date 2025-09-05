@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import WaitlistHero from "@/components/WaitlistHero";
 import WaitlistForm from "@/components/WaitlistForm";
+import PracticalExamples from "@/components/PracticalExamples";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Index = () => {
   const [showForm, setShowForm] = useState(false);
+  const [activeTab, setActiveTab] = useState("waitlist");
 
   if (showForm) {
     return (
@@ -23,7 +26,40 @@ const Index = () => {
     );
   }
 
-  return <WaitlistHero onJoinWaitlist={() => setShowForm(true)} />;
+  return (
+    <div className="min-h-screen bg-gradient-background">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        {/* Navigation Tabs */}
+        <div className="sticky top-0 z-50 bg-gradient-background/95 backdrop-blur-sm border-b border-border">
+          <div className="container mx-auto px-6 py-4">
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 bg-card/50">
+              <TabsTrigger 
+                value="waitlist" 
+                className="data-[state=active]:bg-gradient-primary data-[state=active]:text-white"
+              >
+                Lista de Espera
+              </TabsTrigger>
+              <TabsTrigger 
+                value="examples"
+                className="data-[state=active]:bg-gradient-primary data-[state=active]:text-white"
+              >
+                Exemplos Práticos
+              </TabsTrigger>
+            </TabsList>
+          </div>
+        </div>
+
+        {/* Tab Contents */}
+        <TabsContent value="waitlist" className="mt-0">
+          <WaitlistHero onJoinWaitlist={() => setShowForm(true)} />
+        </TabsContent>
+        
+        <TabsContent value="examples" className="mt-0">
+          <PracticalExamples />
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
 };
 
 export default Index;
