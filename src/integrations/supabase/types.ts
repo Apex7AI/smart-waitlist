@@ -14,7 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      waitlist_leads: {
+        Row: {
+          budget: string
+          company: string | null
+          created_at: string
+          custom_use_case: string | null
+          email: string
+          id: string
+          lead_score: number
+          name: string
+          priority_level: string | null
+          role: string | null
+          status: string | null
+          updated_at: string
+          urgency: string
+          use_cases: string[] | null
+        }
+        Insert: {
+          budget: string
+          company?: string | null
+          created_at?: string
+          custom_use_case?: string | null
+          email: string
+          id?: string
+          lead_score?: number
+          name: string
+          priority_level?: string | null
+          role?: string | null
+          status?: string | null
+          updated_at?: string
+          urgency: string
+          use_cases?: string[] | null
+        }
+        Update: {
+          budget?: string
+          company?: string | null
+          created_at?: string
+          custom_use_case?: string | null
+          email?: string
+          id?: string
+          lead_score?: number
+          name?: string
+          priority_level?: string | null
+          role?: string | null
+          status?: string | null
+          updated_at?: string
+          urgency?: string
+          use_cases?: string[] | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
