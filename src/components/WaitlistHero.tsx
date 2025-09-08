@@ -16,16 +16,15 @@ const WaitlistHero = ({ onJoinWaitlist }: WaitlistHeroProps) => {
         <div className="text-center max-w-4xl mx-auto">
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold mb-8 leading-tight">
-            Construa, gerencie e treine sua{" "}
+            Não é um Chat. É um{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Força de Trabalho IA
+              Trabalhador Digital
             </span>
           </h1>
 
           {/* Subtitle */}
           <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
-            A maneira mais simples de automatizar com inteligência artificial. 
-            Junte-se à lista de espera e seja um dos primeiros a revolucionar sua empresa.
+            Agentes de IA que executam tarefas reais no seu lugar. Pesquisa profunda, controle total do navegador, criação de aplicativos e análises complexas de forma autônoma.
           </p>
 
           {/* CTA Button */}

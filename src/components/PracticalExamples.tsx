@@ -21,120 +21,120 @@ import {
 } from "lucide-react";
 
 const PracticalExamples = () => {
-  const examples = [
+const examples = [
     {
-      icon: Search,
-      title: "Pesquisa de Fornecedores B2B",
-      description: "Lynx realiza uma pesquisa abrangente em extensas redes para identificar os fornecedores mais adequados para suas necessidades específicas.",
-      result: "147 fornecedores qualificados encontrados em 15 minutos",
-      category: "Pesquisa",
-      time: "15 min",
-      difficulty: "Automático"
-    },
-    {
-      icon: Building2,
-      title: "Lista de Empresas YC W25",
-      description: "Navegou com maestria no banco de dados YC para identificar todas as empresas B2B qualificadas, compilando em tabela estruturada.",
-      result: "250+ startups categorizadas por setor e estágio",
-      category: "Dados",
-      time: "8 min",
-      difficulty: "Automático"
-    },
-    {
-      icon: Target,
-      title: "Pesquisa de 20 Empresas de CRM",
-      description: "Identificou as 20 principais empresas de CRM e compilou seus slogans e histórias da marca em uma visão abrangente do setor.",
-      result: "Relatório completo com análise competitiva",
-      category: "Análise",
-      time: "12 min",
-      difficulty: "Automático"
+      icon: Code2,
+      title: "Construtor de Sites com IA",
+      description: "Descreva sua ideia e o Lynx gera automaticamente código HTML/CSS funcional com design responsivo e conteúdo pronto para publicação.",
+      result: "Sites profissionais em 5-10 minutos",
+      category: "Criação",
+      time: "5-10 min",
+      difficulty: "Fácil"
     },
     {
       icon: TrendingUp,
-      title: "Análise de Tendências de Mercado",
-      description: "Monitoramento contínuo de tendências, análise de concorrentes e identificação de oportunidades de negócio em tempo real.",
-      result: "Dashboard interativo com insights acionáveis",
-      category: "Inteligência",
-      time: "Contínuo",
-      difficulty: "Automático"
-    },
-    {
-      icon: Users,
-      title: "Qualificação de Leads",
-      description: "Análise automática de prospects, scoring de leads e criação de listas qualificadas para equipes de vendas.",
-      result: "300+ leads qualificados e categorizados",
-      category: "Vendas",
-      time: "5 min",
-      difficulty: "Automático"
+      title: "Análise de Investimentos",
+      description: "Compare histórico de empresas, analise demonstrativos financeiros e crie relatórios detalhados com insights acionáveis.",
+      result: "Decisões de investimento 3x mais assertivas",
+      category: "Finanças",
+      time: "15-20 min",
+      difficulty: "Avançado"
     },
     {
       icon: FileText,
-      title: "Criação de Propostas",
-      description: "Geração automática de propostas comerciais personalizadas baseadas no perfil do cliente e histórico de interações.",
-      result: "Propostas personalizadas em segundos",
-      category: "Documentos",
-      time: "2 min",
-      difficulty: "Automático"
+      title: "Gerador de Vídeos com IA",
+      description: "Transforme roteiros em vídeos editados com narração, legendas e imagens automáticas — exportado em MP4 ou link de visualização.",
+      result: "Conteúdo profissional sem equipe de produção",
+      category: "Criação",
+      time: "10-15 min",
+      difficulty: "Intermediário"
     },
     {
-      icon: Code2,
-      title: "Automação DevOps",
-      description: "Execução de comandos no terminal, deploy automático, monitoramento de sistemas e resolução de problemas de infraestrutura.",
-      result: "99.9% de uptime com resolução automática",
-      category: "Técnico",
-      time: "24/7",
-      difficulty: "Automático"
+      icon: Search,
+      title: "Pesquisa de Mercado Automatizada",
+      description: "Coleta dados de concorrentes, preços, tendências e demanda em setores específicos, e gera relatório com insights acionáveis.",
+      result: "Identificação de 5 oportunidades de mercado",
+      category: "Pesquisa",
+      time: "20-30 min",
+      difficulty: "Avançado"
     },
     {
-      icon: Mail,
-      title: "Campanhas de Email Marketing",
-      description: "Criação, personalização e envio de campanhas segmentadas com análise de performance em tempo real.",
-      result: "45% de aumento na taxa de conversão",
-      category: "Marketing",
-      time: "10 min",
-      difficulty: "Automático"
-    },
-    {
-      icon: BarChart3,
-      title: "Relatórios Executivos",
-      description: "Consolidação automática de dados de múltiplas fontes em relatórios executivos com insights e recomendações.",
-      result: "Relatórios completos com 20+ métricas",
-      category: "Gestão",
-      time: "3 min",
-      difficulty: "Automático"
-    },
-    {
-      icon: ShoppingCart,
-      title: "Análise de E-commerce",
-      description: "Monitoramento de preços, análise de concorrentes, otimização de produtos e estratégias de precificação.",
-      result: "15% de aumento nas vendas online",
-      category: "E-commerce",
-      time: "Contínuo",
-      difficulty: "Automático"
+      icon: Users,
+      title: "Análise de Candidatos a CEO",
+      description: "Pesquisa histórico profissional, analisa liderança e cria painéis com recomendações estratégicas para seleção executiva.",
+      result: "Processo de seleção 80% mais eficiente",
+      category: "RH",
+      time: "25-35 min",
+      difficulty: "Avançado"
     },
     {
       icon: MessageSquare,
-      title: "Atendimento ao Cliente IA",
-      description: "Resposta automática a dúvidas, resolução de problemas técnicos e escalamento inteligente para humanos.",
-      result: "85% de resolução automática",
-      category: "Suporte",
-      time: "Instantâneo",
-      difficulty: "Automático"
+      title: "Localizador de Influenciadores YouTube", 
+      description: "Busca criadores por nicho, engajamento e localização, extrai dados de canal e organiza os melhores perfis em tabela.",
+      result: "Campanhas com 300% mais alcance",
+      category: "Marketing",
+      time: "10-15 min",
+      difficulty: "Intermediário"
     },
     {
-      icon: Calendar,
-      title: "Agendamento Inteligente",
-      description: "Coordenação automática de reuniões, follow-ups e lembretes personalizados baseados no comportamento do cliente.",
-      result: "70% mais reuniões agendadas",
-      category: "Produtividade",
-      time: "Instantâneo",
-      difficulty: "Automático"
+      icon: FileText,
+      title: "Gerador de Slides com IA",
+      description: "Insira um tema, relatório ou documento, e o Lynx cria apresentação completa em PowerPoint ou PDF com design coeso.",
+      result: "Apresentações impactantes em minutos",
+      category: "Criação",
+      time: "5-8 min",
+      difficulty: "Fácil"
+    },
+    {
+      icon: Target,
+      title: "Verificador de Fatos",
+      description: "Pesquisa fontes confiáveis, compara dados e contextos, e gera relatório com grau de veracidade e links para evidências.",
+      result: "100% de precisão em verificações",
+      category: "Pesquisa",
+      time: "5-10 min",
+      difficulty: "Intermediário"
+    },
+    {
+      icon: Globe,
+      title: "Pesquisa Histórica + Site",
+      description: "Pesquise a história de Albert Einstein e crie um site completo para apresentar, com visualizações e timeline interativo.",
+      result: "Conteúdo educacional rico e envolvente",
+      category: "Educação",
+      time: "20-30 min",
+      difficulty: "Avançado"
+    },
+    {
+      icon: Briefcase,
+      title: "Construtor de Canvas de Negócios",
+      description: "Recebe descrição do produto e preenche automaticamente as nove áreas do Business Model Canvas em formato digital.",
+      result: "Estratégia de negócio clara e estruturada",
+      category: "Negócios",
+      time: "8-12 min",
+      difficulty: "Intermediário"
+    },
+    {
+      icon: Code2,
+      title: "Gerador de Extensões Chrome",
+      description: "Descreva a funcionalidade desejada e gere código completo da extensão testável no navegador Chrome.",
+      result: "Ferramentas personalizadas sem programação",
+      category: "Desenvolvimento",
+      time: "15-25 min",
+      difficulty: "Avançado"
+    },
+    {
+      icon: BarChart3,
+      title: "Análise SWOT Automatizada",
+      description: "Pesquisa empresa/setor e produz análise SWOT estruturada com dados reais, não genérica, incluindo insights competitivos.",
+      result: "Estratégias competitivas mais assertivas",
+      category: "Estratégia",
+      time: "15-20 min",
+      difficulty: "Intermediário"
     }
   ];
 
   const categories = [
-    "Todos", "Pesquisa", "Dados", "Análise", "Inteligência", 
-    "Vendas", "Marketing", "Técnico", "Gestão", "E-commerce", "Suporte", "Produtividade"
+    "Todos", "Criação", "Finanças", "Pesquisa", "RH", "Marketing", 
+    "Educação", "Negócios", "Desenvolvimento", "Estratégia"
   ];
 
   const [selectedCategory, setSelectedCategory] = React.useState("Todos");
@@ -149,14 +149,15 @@ const PracticalExamples = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-6xl font-bold mb-6">
-            Veja o{" "}
+            Execute Tarefas{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Poder em Ação
-            </span>
+              Complexas
+            </span>{" "}
+            de Forma Autônoma
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Exemplos reais de como nossos agentes IA estão revolucionando empresas. 
-            Cada caso mostra resultados concretos e mensuráveis.
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Não é apenas um chat. É um agente de IA que pesquisa, analisa, cria e executa tarefas reais no seu lugar. 
+            <span className="text-primary font-medium"> Controle total do navegador, análises profundas e criação de conteúdo independente.</span>
           </p>
         </div>
 
@@ -227,13 +228,47 @@ const PracticalExamples = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16 p-8 bg-gradient-card rounded-2xl border border-border">
-          <h3 className="text-2xl font-bold mb-4">
-            Pronto para criar seus próprios agentes?
+          <h3 className="text-2xl font-bold mb-6">
+            Dois Caminhos, Uma Revolução
           </h3>
-          <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
-            Estes são apenas alguns exemplos. Nossa plataforma permite criar agentes 
-            personalizados para qualquer processo do seu negócio.
+          <p className="text-muted-foreground mb-8 max-w-3xl mx-auto">
+            <span className="text-primary font-medium">Para Você:</span> Use diretamente nossa plataforma para executar tarefas complexas. 
+            <span className="text-primary font-medium ml-4">Para Sua Empresa:</span> Construa, gerencie e treine sua força de trabalho de IA.
           </p>
+          
+          <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <div className="text-center p-6 bg-gradient-primary/10 rounded-lg border border-primary/20">
+              <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-white" />
+              </div>
+              <h4 className="font-bold text-lg mb-3">Uso Individual</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Acesse nossa plataforma e execute tarefas como pesquisa profunda, criação de conteúdo, análises complexas e automações.
+              </p>
+              <ul className="text-xs text-left space-y-1 text-muted-foreground">
+                <li>• Controle total do navegador</li>
+                <li>• Pesquisa e análise profunda</li>
+                <li>• Criação de sites, vídeos e apresentações</li>
+                <li>• Verificação de fatos e dados</li>
+              </ul>
+            </div>
+            <div className="text-center p-6 bg-gradient-primary/5 rounded-lg border border-border">
+              <div className="w-16 h-16 bg-gradient-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <Building2 className="h-8 w-8 text-white" />
+              </div>
+              <h4 className="font-bold text-lg mb-3">Implementação Empresarial</h4>
+              <p className="text-sm text-muted-foreground mb-4">
+                Construa, gerencie e treine sua força de trabalho artificial. Agentes especializados para cada departamento.
+              </p>
+              <ul className="text-xs text-left space-y-1 text-muted-foreground">
+                <li>• Integração com sistemas existentes</li>
+                <li>• Agentes personalizados por setor</li>
+                <li>• Automação de processos complexos</li>
+                <li>• Suporte e treinamento dedicado</li>
+              </ul>
+            </div>
+          </div>
+          
           <div className="flex flex-wrap justify-center gap-4">
             <Badge variant="secondary" className="px-4 py-2">
               <Database className="w-4 h-4 mr-2" />
