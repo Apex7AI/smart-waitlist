@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { ChevronRight, ChevronLeft, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 interface FormData {
   name: string;
@@ -88,22 +89,54 @@ const WaitlistForm = () => {
   const handleSubmit = async () => {
     const score = calculateScore(formData);
     
-    // Here you would normally save to database
-    console.log("Lead Score:", score);
-    console.log("Form Data:", formData);
-    
-    setIsSubmitted(true);
-    
-    let priorityMessage = "";
-    if (score >= 10) priorityMessage = "Você está no topo da nossa lista! Entraremos em contato em breve.";
-    else if (score >= 7) priorityMessage = "Você tem alta prioridade na nossa lista de espera.";
-    else if (score >= 4) priorityMessage = "Você foi adicionado à nossa lista de espera prioritária.";
-    else priorityMessage = "Obrigado por se inscrever! Manteremos você informado sobre nosso lançamento.";
+    try {
+      // Save to Supabase
+      const { error } = await supabase
+        .from('waitlist_leads')
+        .insert({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company || null,
+          role: formData.role || null,
+          use_cases: formData.useCases,
+          custom_use_case: formData.customUseCase || null,
+          urgency: formData.urgency,
+          budget: formData.budget,
+          lead_score: score
+        });
 
-    toast({
-      title: "Inscrição realizada com sucesso!",
-      description: priorityMessage,
-    });
+      if (error) {
+        throw error;
+      }
+
+      console.log("Lead Score:", score);
+      console.log("Form Data:", formData);
+      
+      setIsSubmitted(true);
+      
+      let priorityMessage = "";
+      if (score >= 8) priorityMessage = "Você está no topo da nossa lista! Entraremos em contato em breve.";
+      else if (score >= 5) priorityMessage = "Você tem alta prioridade na nossa lista de espera.";
+      else priorityMessage = "Obrigado por se inscrever! Manteremos você informado sobre nosso lançamento.";
+
+      toast({
+        title: "Inscrição realizada com sucesso!",
+        description: priorityMessage,
+      });
+    } catch (error: any) {
+      console.error("Error saving to database:", error);
+      
+      let errorMessage = "Erro ao processar sua inscrição. Tente novamente.";
+      if (error.code === '23505') {
+        errorMessage = "Este e-mail já está cadastrado em nossa lista de espera.";
+      }
+      
+      toast({
+        title: "Erro na inscrição",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    }
   };
 
   const nextStep = () => {
