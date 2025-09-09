@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { useToast } from "@/hooks/use-toast";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/contexts/AuthContext';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Users, 
   TrendingUp, 
@@ -15,8 +17,11 @@ import {
   Copy,
   Building2,
   Star,
-  AlertCircle
-} from "lucide-react";
+  AlertCircle,
+  LogOut,
+  Shield,
+  AlertTriangle
+} from 'lucide-react';
 
 interface WaitlistLead {
   id: string;
@@ -36,6 +41,7 @@ interface WaitlistLead {
 }
 
 const Dashboard = () => {
+  const { user, isAdmin, loading: authLoading, signOut } = useAuth();
   const [leads, setLeads] = useState<WaitlistLead[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -47,6 +53,7 @@ const Dashboard = () => {
     companies: 0
   });
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -70,21 +77,31 @@ const Dashboard = () => {
   }, [user, isAdmin, authLoading, navigate]);
 
   const fetchLeads = async () => {
+    if (!isAdmin) return;
+    
     try {
       const { data, error } = await supabase
         .from('waitlist_leads')
         .select('*')
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching leads:', error);
+        toast({
+          title: "Erro ao carregar dados",
+          description: "Não foi possível carregar os leads. Verifique suas permissões.",
+          variant: "destructive",
+        });
+        return;
+      }
 
       setLeads(data || []);
       calculateStats(data || []);
     } catch (error) {
-      console.error('Error fetching leads:', error);
+      console.error('Error:', error);
       toast({
-        title: "Erro ao carregar dados",
-        description: "Não foi possível carregar os dados do dashboard.",
+        title: "Erro de conexão",
+        description: "Erro ao conectar com o banco de dados.",
         variant: "destructive",
       });
     } finally {
@@ -177,133 +194,177 @@ const Dashboard = () => {
     });
   };
 
-  if (loading) {
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/');
+  };
+
+  if (authLoading || loading) {
     return (
-      <div className="min-h-screen bg-gradient-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Carregando dashboard...</p>
-        </div>
+      <div className="flex items-center justify-center min-h-screen bg-gradient-background">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null; // Redirect handled by useEffect
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-gradient-background flex items-center justify-center p-6">
+        <Card className="max-w-md">
+          <CardHeader className="text-center">
+            <AlertTriangle className="w-12 h-12 text-destructive mx-auto mb-4" />
+            <CardTitle>Acesso Restrito</CardTitle>
+            <CardDescription>
+              Você não tem permissão para acessar esta página.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="text-center">
+            <Button onClick={() => navigate('/')} variant="outline">
+              Voltar ao início
+            </Button>
+          </CardContent>
+        </Card>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-background p-6">
-      <div className="container mx-auto">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">Dashboard - Lista de Espera</h1>
+    <div className="p-6 max-w-7xl mx-auto space-y-6 bg-gradient-background min-h-screen">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Shield className="w-6 h-6 text-primary" />
+            <h1 className="text-3xl font-bold">Dashboard Admin</h1>
+          </div>
           <p className="text-muted-foreground">
-            Gerencie e analise os leads da sua lista de espera
+            Gerencie e analise os leads da lista de espera
           </p>
         </div>
-
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-gradient-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total de Leads</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.total}</div>
-              <p className="text-xs text-muted-foreground">
-                {stats.companies} com empresa
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Alta Prioridade</CardTitle>
-              <Star className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-400">{stats.highPriority}</div>
-              <p className="text-xs text-muted-foreground">
-                Score ≥ 8 pontos
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Score Médio</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.avgScore}</div>
-              <p className="text-xs text-muted-foreground">
-                De 12 pontos possíveis
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-gradient-card border-border">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Com Empresas</CardTitle>
-              <Building2 className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{stats.companies}</div>
-              <p className="text-xs text-muted-foreground">
-                {Math.round((stats.companies / stats.total) * 100)}% do total
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Actions */}
-        <div className="flex gap-4 mb-6">
-          <Button onClick={exportToCSV} className="bg-gradient-primary">
-            <Download className="h-4 w-4 mr-2" />
-            Exportar CSV
-          </Button>
-          <Button onClick={copyEmailList} variant="secondary">
-            <Copy className="h-4 w-4 mr-2" />
-            Copiar E-mails
+        
+        <div className="flex items-center gap-4">
+          <span className="text-sm text-muted-foreground">
+            {user.email} (Admin)
+          </span>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleSignOut}
+            className="hover:bg-destructive hover:text-destructive-foreground"
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Sair
           </Button>
         </div>
-
-        {/* Data Table */}
-        <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full max-w-md grid-cols-4 bg-card/50 mb-6">
-            <TabsTrigger value="all">Todos</TabsTrigger>
-            <TabsTrigger value="high">Alta</TabsTrigger>
-            <TabsTrigger value="medium">Média</TabsTrigger>
-            <TabsTrigger value="low">Baixa</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="all">
-            <LeadsTable leads={leads} getPriorityBadge={getPriorityBadge} getBudgetColor={getBudgetColor} />
-          </TabsContent>
-          
-          <TabsContent value="high">
-            <LeadsTable 
-              leads={leads.filter(lead => lead.lead_score >= 8)} 
-              getPriorityBadge={getPriorityBadge} 
-              getBudgetColor={getBudgetColor} 
-            />
-          </TabsContent>
-          
-          <TabsContent value="medium">
-            <LeadsTable 
-              leads={leads.filter(lead => lead.lead_score >= 5 && lead.lead_score < 8)} 
-              getPriorityBadge={getPriorityBadge} 
-              getBudgetColor={getBudgetColor} 
-            />
-          </TabsContent>
-          
-          <TabsContent value="low">
-            <LeadsTable 
-              leads={leads.filter(lead => lead.lead_score < 5)} 
-              getPriorityBadge={getPriorityBadge} 
-              getBudgetColor={getBudgetColor} 
-            />
-          </TabsContent>
-        </Tabs>
       </div>
+
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="bg-gradient-card border-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total de Leads</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.total}</div>
+            <p className="text-xs text-muted-foreground">
+              {stats.companies} com empresa
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-card border-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Alta Prioridade</CardTitle>
+            <Star className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-400">{stats.highPriority}</div>
+            <p className="text-xs text-muted-foreground">
+              Score ≥ 8 pontos
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-card border-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Score Médio</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.avgScore}</div>
+            <p className="text-xs text-muted-foreground">
+              De 12 pontos possíveis
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-card border-border">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Com Empresas</CardTitle>
+            <Building2 className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{stats.companies}</div>
+            <p className="text-xs text-muted-foreground">
+              {stats.total > 0 ? Math.round((stats.companies / stats.total) * 100) : 0}% do total
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Actions */}
+      <div className="flex gap-4">
+        <Button onClick={exportToCSV} className="bg-gradient-primary">
+          <Download className="h-4 w-4 mr-2" />
+          Exportar CSV
+        </Button>
+        <Button onClick={copyEmailList} variant="secondary">
+          <Copy className="h-4 w-4 mr-2" />
+          Copiar E-mails
+        </Button>
+      </div>
+
+      {/* Data Table */}
+      <Tabs defaultValue="all" className="w-full">
+        <TabsList className="grid w-full max-w-md grid-cols-4 bg-card/50">
+          <TabsTrigger value="all">Todos</TabsTrigger>
+          <TabsTrigger value="high">Alta</TabsTrigger>
+          <TabsTrigger value="medium">Média</TabsTrigger>
+          <TabsTrigger value="low">Baixa</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="all">
+          <LeadsTable leads={leads} getPriorityBadge={getPriorityBadge} getBudgetColor={getBudgetColor} />
+        </TabsContent>
+        
+        <TabsContent value="high">
+          <LeadsTable 
+            leads={leads.filter(lead => lead.lead_score >= 8)} 
+            getPriorityBadge={getPriorityBadge} 
+            getBudgetColor={getBudgetColor} 
+          />
+        </TabsContent>
+        
+        <TabsContent value="medium">
+          <LeadsTable 
+            leads={leads.filter(lead => lead.lead_score >= 5 && lead.lead_score < 8)} 
+            getPriorityBadge={getPriorityBadge} 
+            getBudgetColor={getBudgetColor} 
+          />
+        </TabsContent>
+        
+        <TabsContent value="low">
+          <LeadsTable 
+            leads={leads.filter(lead => lead.lead_score < 5)} 
+            getPriorityBadge={getPriorityBadge} 
+            getBudgetColor={getBudgetColor} 
+          />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
