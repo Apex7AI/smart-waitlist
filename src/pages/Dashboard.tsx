@@ -49,8 +49,25 @@ const Dashboard = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    fetchLeads();
-  }, []);
+    if (!authLoading && !user) {
+      navigate('/auth');
+      return;
+    }
+    
+    if (!authLoading && user && !isAdmin) {
+      toast({
+        title: "Acesso negado",
+        description: "Você não tem permissão para acessar esta página.",
+        variant: "destructive",
+      });
+      navigate('/');
+      return;
+    }
+    
+    if (isAdmin) {
+      fetchLeads();
+    }
+  }, [user, isAdmin, authLoading, navigate]);
 
   const fetchLeads = async () => {
     try {
