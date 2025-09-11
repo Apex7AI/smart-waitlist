@@ -1,8 +1,8 @@
 [phases.start]
-cmd = "caddy run --config /app/Caddyfile --adapter caddyfile"
+cmd = "caddy run --config /assets/Caddyfile --adapter caddyfile"
 
 [phases.build]
-cmds = ["npm run build"]
+cmds = ["bun run build"]
 
 [phases.install]
-cmds = ["npm install"]
+cmds = ["bun install"]
