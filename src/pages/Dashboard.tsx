@@ -41,7 +41,7 @@ interface WaitlistLead {
 }
 
 const Dashboard = () => {
-  const { user, isAdmin, loading: authLoading, signOut } = useAuth();
+  const { user, isAdmin, loading: authLoading, signOut, profile } = useAuth();
   const [leads, setLeads] = useState<WaitlistLead[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
@@ -56,12 +56,19 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('Dashboard - authLoading:', authLoading);
+    console.log('Dashboard - user:', user);  
+    console.log('Dashboard - isAdmin:', isAdmin);
+    console.log('Dashboard - profile:', profile);
+    
     if (!authLoading && !user) {
+      console.log('Redirecting to auth - no user');
       navigate('/auth');
       return;
     }
     
     if (!authLoading && user && !isAdmin) {
+      console.log('Access denied - user exists but not admin');
       toast({
         title: "Acesso negado",
         description: "Você não tem permissão para acessar esta página.",
@@ -72,9 +79,10 @@ const Dashboard = () => {
     }
     
     if (isAdmin) {
+      console.log('User is admin - fetching leads');
       fetchLeads();
     }
-  }, [user, isAdmin, authLoading, navigate]);
+  }, [user, isAdmin, authLoading, navigate, profile]);
 
   const fetchLeads = async () => {
     if (!isAdmin) return;
