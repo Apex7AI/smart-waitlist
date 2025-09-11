@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useAuth } from "@/contexts/AuthContext";
+import { Button } from "@/components/ui/button";
+import { Shield } from "lucide-react";
 import WaitlistHero from "@/components/WaitlistHero";
 import PracticalExamples from "@/components/PracticalExamples";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -7,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const Index = () => {
   const [activeTab, setActiveTab] = useState("waitlist");
   const navigate = useNavigate();
+  const { user, isAdmin, profile } = useAuth();
 
   const handleJoinWaitlist = () => {
     navigate('/auth', { state: { from: { pathname: '/waitlist-form' } } });
@@ -14,6 +19,18 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-background">
+      {/* Admin Access Button - Only show if user is authenticated and is admin */}
+      {user && isAdmin && profile && (
+        <div className="fixed top-4 right-4 z-50">
+          <Button asChild className="bg-gradient-primary shadow-lg">
+            <Link to="/dashboard" className="flex items-center gap-2">
+              <Shield className="w-4 h-4" />
+              Painel Admin
+            </Link>
+          </Button>
+        </div>
+      )}
+      
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
         {/* Navigation Tabs */}
         <div className="sticky top-0 z-50 bg-gradient-background/95 backdrop-blur-sm border-b border-border">

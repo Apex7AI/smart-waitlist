@@ -61,13 +61,27 @@ const Dashboard = () => {
     console.log('Dashboard - isAdmin:', isAdmin);
     console.log('Dashboard - profile:', profile);
     
-    if (!authLoading && !user) {
+    // Aguardar o carregamento da autenticação completar
+    if (authLoading) {
+      console.log('Still loading auth...');
+      return;
+    }
+    
+    // Se não há usuário, redirecionar para login
+    if (!user) {
       console.log('Redirecting to auth - no user');
       navigate('/auth');
       return;
     }
     
-    if (!authLoading && user && !isAdmin) {
+    // Se há usuário mas o perfil ainda não foi carregado, aguardar
+    if (user && profile === null) {
+      console.log('User exists but profile not loaded yet, waiting...');
+      return;
+    }
+    
+    // Se usuário existe mas não é admin, negar acesso
+    if (user && profile && !isAdmin) {
       console.log('Access denied - user exists but not admin');
       toast({
         title: "Acesso negado",
@@ -78,7 +92,8 @@ const Dashboard = () => {
       return;
     }
     
-    if (isAdmin) {
+    // Se é admin, carregar os dados
+    if (isAdmin && profile) {
       console.log('User is admin - fetching leads');
       fetchLeads();
     }
