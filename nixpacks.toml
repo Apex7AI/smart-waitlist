@@ -1,15 +1,8 @@
-# Configuração para EasyPanel
-[variables]
-PORT = "8080"
+[phases.start]
+cmd = "caddy run --config /app/Caddyfile --adapter caddyfile"
 
-[phases.setup]
-nixPkgs = ["nodejs_18", "caddy"]
+[phases.build] 
+cmds = ["npm run build"]
 
 [phases.install]
 cmds = ["npm install"]
-
-[phases.build]
-cmds = ["npm run build"]
-
-[phases.start]
-cmd = "caddy run --config /app/Caddyfile --adapter caddyfile 2>&1"
