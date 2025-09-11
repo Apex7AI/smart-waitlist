@@ -20,11 +20,8 @@ import {
   AlertCircle,
   LogOut,
   Shield,
-  AlertTriangle,
-  BarChart3,
-  Calendar
+  AlertTriangle
 } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 interface WaitlistLead {
   id: string;
@@ -54,10 +51,6 @@ const Dashboard = () => {
     lowPriority: 0,
     avgScore: 0,
     companies: 0
-  });
-  const [chartData, setChartData] = useState({
-    priority: [] as any[],
-    timeline: [] as any[]
   });
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -154,37 +147,6 @@ const Dashboard = () => {
       lowPriority,
       avgScore: Math.round(avgScore * 10) / 10,
       companies
-    });
-
-    // Prepare chart data
-    const priorityData = [
-      { name: 'Alta Prioridade', value: highPriority, color: '#22c55e' },
-      { name: 'Média Prioridade', value: mediumPriority, color: '#3b82f6' },
-      { name: 'Baixa Prioridade', value: lowPriority, color: '#f59e0b' }
-    ];
-
-    // Timeline data - group by day for the last 7 days
-    const today = new Date();
-    const last7Days = [];
-    for (let i = 6; i >= 0; i--) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - i);
-      const dateStr = date.toISOString().split('T')[0];
-      
-      const leadsOnDate = leadsData.filter(lead => {
-        const leadDate = new Date(lead.created_at).toISOString().split('T')[0];
-        return leadDate === dateStr;
-      }).length;
-
-      last7Days.push({
-        date: date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' }),
-        leads: leadsOnDate
-      });
-    }
-
-    setChartData({
-      priority: priorityData.filter(item => item.value > 0),
-      timeline: last7Days
     });
   };
 
@@ -373,70 +335,6 @@ const Dashboard = () => {
             <p className="text-xs text-muted-foreground">
               {stats.total > 0 ? Math.round((stats.companies / stats.total) * 100) : 0}% do total
             </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Charts */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Priority Distribution Chart */}
-        <Card className="bg-gradient-card border-border">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
-              Distribuição por Prioridade
-            </CardTitle>
-            <CardDescription>
-              Classificação baseada no score dos leads
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <PieChart>
-                <Pie
-                  data={chartData.priority}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={({ name, value }) => `${name}: ${value}`}
-                  outerRadius={80}
-                  fill="#8884d8"
-                  dataKey="value"
-                >
-                  {chartData.priority.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                <Tooltip />
-              </PieChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-
-        {/* Timeline Chart */}
-        <Card className="bg-gradient-card border-border">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Calendar className="h-5 w-5" />
-              Leads dos Últimos 7 Dias
-            </CardTitle>
-            <CardDescription>
-              Evolução do cadastro de novos leads
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ResponsiveContainer width="100%" height={300}>
-              <BarChart data={chartData.timeline}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" />
-                <YAxis />
-                <Tooltip 
-                  formatter={(value) => [`${value} leads`, 'Cadastros']}
-                  labelFormatter={(label) => `Data: ${label}`}
-                />
-                <Bar dataKey="leads" fill="hsl(var(--primary))" />
-              </BarChart>
-            </ResponsiveContainer>
           </CardContent>
         </Card>
       </div>
