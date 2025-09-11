@@ -21,8 +21,8 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-background">
       {/* Admin Access Button - Only show if user is authenticated and is admin */}
       {user && isAdmin && profile && (
-        <div className="fixed top-4 right-4 z-50">
-          <Button asChild className="bg-gradient-primary shadow-lg">
+        <div className="fixed top-4 right-4 z-[60]">
+          <Button asChild className="bg-gradient-primary shadow-lg hover:shadow-xl transition-all duration-300">
             <Link to="/dashboard" className="flex items-center gap-2">
               <Shield className="w-4 h-4" />
               Painel Admin
