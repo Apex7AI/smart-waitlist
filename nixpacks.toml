@@ -1,8 +1,0 @@
-[phases.start]
-cmd = "caddy run --config /app/Caddyfile --adapter caddyfile"
-
-[phases.build] 
-cmds = ["npm run build"]
-
-[phases.install]
-cmds = ["npm install"]
