@@ -1,0 +1,8 @@
+# Caddyfile usado pelo Nixpacks (EasyPanel)
+# Servir a build do Vite (pasta /app/dist)
+:{$PORT:8080} {
+  root * /app/dist
+  file_server
+  # SPA fallback: qualquer rota não encontrada volta para o index.html
+  try_files {path} /index.html
+}
