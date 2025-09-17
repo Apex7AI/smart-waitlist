@@ -1,0 +1,11 @@
+# Define o comando para iniciar o servidor web
+[phases.start]
+cmd = "caddy run --config /app/Caddyfile --adapter caddyfile"
+
+# Define o comando para construir a aplicação para produção
+[phases.build]
+cmds = ["npm run build"]
+
+# Define o comando para instalar as dependências
+[phases.install]
+cmds = ["npm install"]

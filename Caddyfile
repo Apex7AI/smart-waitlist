@@ -1,0 +1,10 @@
+# Inicia o servidor na porta definida pelo ambiente
+:{$PORT:8080} {
+  # Define a pasta "dist" (resultado do build) como a raiz do site
+  root * /app/dist
+  # Habilita o servidor de arquivos estáticos
+  file_server
+  # LINHA MAIS IMPORTANTE: Resolve o erro 404
+  # Tenta encontrar o arquivo da rota, se não encontrar, serve o index.html
+  try_files {path} /index.html
+}
