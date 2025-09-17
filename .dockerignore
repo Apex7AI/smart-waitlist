@@ -1,0 +1,17 @@
+node_modules
+.dist
+.git
+.github
+.vscode
+.idea
+Dockerfile*
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store
+.npm
+.npmrc
+.eslintcache
+.tmp
+.cache
