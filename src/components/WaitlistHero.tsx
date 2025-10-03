@@ -67,7 +67,7 @@ const WaitlistHero = ({ onJoinWaitlist }: WaitlistHeroProps) => {
           {/* Social Proof */}
           <div className="mt-16 pt-8 border-t border-border">
             <p className="text-sm text-muted-foreground mb-4">
-              Já somos <strong className="text-primary">500+</strong> empresas na lista de espera
+              Expectativa para os próximos meses <strong className="text-primary">50k+</strong> usuários na lista de espera
             </p>
             
             {/* Trust Indicators */}
