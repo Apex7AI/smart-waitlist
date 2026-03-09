@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -20,6 +20,15 @@ import {
 
 const GrupoVIP = () => {
   const whatsappLink = "https://chat.whatsapp.com/FCQds4ezSZq92BGXnaND2E";
+
+  // Redirecionamento automático após 3 segundos
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.location.href = whatsappLink;
+    }, 3000); // 3 segundos
+
+    return () => clearTimeout(timer);
+  }, [whatsappLink]);
 
   const prompts = [
     { block: "PESQUISA E ANÁLISE", title: "Concorrentes", desc: "Pesquise 5 principais concorrentes e gere relatório comparativo" },
@@ -110,6 +119,12 @@ const GrupoVIP = () => {
             ENTRAR NO GRUPO VIP GRATUITO
             <ArrowRight className="w-6 h-6" />
           </a>
+
+          {/* Aviso de redirecionamento automático */}
+          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground bg-primary/5 rounded-lg p-3 max-w-md mx-auto border border-primary/10">
+            <Clock className="w-4 h-4 text-primary" />
+            <span>Você será redirecionado para o grupo em <strong className="text-primary">3 segundos</strong>...</span>
+          </div>
 
           {/* Micro-prova social */}
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs md:text-sm text-muted-foreground mb-8">
