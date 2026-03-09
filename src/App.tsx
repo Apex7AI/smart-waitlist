@@ -14,8 +14,9 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-// Substitua pelo SEU Pixel ID do Facebook
-const FACEBOOK_PIXEL_ID = import.meta.env.VITE_FACEBOOK_PIXEL_ID || "";
+// Pixel ID do Facebook - Produção (EasyPanel)
+// Adicione no EasyPanel: VITE_FACEBOOK_PIXEL_ID=766465409575936
+const FACEBOOK_PIXEL_ID = import.meta.env.VITE_FACEBOOK_PIXEL_ID || "766465409575936";
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
