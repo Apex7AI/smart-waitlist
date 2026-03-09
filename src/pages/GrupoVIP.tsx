@@ -102,8 +102,10 @@ const GrupoVIP = () => {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 w-full max-w-md mx-auto px-8 py-5 text-lg font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-8 animate-[pulse_3s_ease-in-out_infinite]"
+            className="inline-flex items-center justify-center gap-3 w-full max-w-md mx-auto px-8 py-5 text-lg font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-8 relative overflow-hidden"
           >
+            {/* Shine effect - brilho passando continuamente */}
+            <span className="absolute inset-0 -translate-x-full animate-[shine_2s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <MessageCircle className="w-6 h-6" />
             ENTRAR NO GRUPO VIP GRATUITO
             <ArrowRight className="w-6 h-6" />
@@ -405,8 +407,10 @@ const GrupoVIP = () => {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-3 w-full max-w-md mx-auto px-8 py-5 text-lg font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-6 animate-[pulse_3s_ease-in-out_infinite]"
+            className="inline-flex items-center justify-center gap-3 w-full max-w-md mx-auto px-8 py-5 text-lg font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-6 relative overflow-hidden"
           >
+            {/* Shine effect - brilho passando continuamente */}
+            <span className="absolute inset-0 -translate-x-full animate-[shine_2s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <MessageCircle className="w-6 h-6" />
             QUERO ENTRAR NO GRUPO AGORA
             <ArrowRight className="w-6 h-6" />
