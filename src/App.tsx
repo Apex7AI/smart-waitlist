@@ -18,16 +18,22 @@ const queryClient = new QueryClient();
 // Adicione no EasyPanel: VITE_FACEBOOK_PIXEL_ID=766465409575936
 const FACEBOOK_PIXEL_ID = import.meta.env.VITE_FACEBOOK_PIXEL_ID || "766465409575936";
 
+// Wrapper component para usar o FacebookPixel dentro do Router
+const FacebookPixelWrapper = () => {
+  if (!FACEBOOK_PIXEL_ID) return null;
+  return <FacebookPixel pixelId={FACEBOOK_PIXEL_ID} />;
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
       <TooltipProvider>
-        {/* Facebook Pixel - Rastreamento de eventos */}
-        {FACEBOOK_PIXEL_ID && <FacebookPixel pixelId={FACEBOOK_PIXEL_ID} />}
-
-        <Toaster />
-        <Sonner />
         <BrowserRouter>
+          {/* Facebook Pixel - Deve estar DENTRO do Router para usar useLocation */}
+          <FacebookPixelWrapper />
+
+          <Toaster />
+          <Sonner />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />

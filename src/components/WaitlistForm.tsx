@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { ChevronRight, ChevronLeft, CheckCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import { supabase } from "@/integrations/supabase/client";
 
 interface FormData {
@@ -36,6 +37,7 @@ const WaitlistForm = () => {
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const { trackLead } = useFacebookPixel();
 
   const totalSteps = 4;
   const progress = (step / totalSteps) * 100;
@@ -111,6 +113,8 @@ const WaitlistForm = () => {
 
       console.log("Lead Score:", score);
       console.log("Form Data:", formData);
+
+      trackLead();
       
       setIsSubmitted(true);
       
@@ -123,11 +127,11 @@ const WaitlistForm = () => {
         title: "Inscrição realizada com sucesso!",
         description: priorityMessage,
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error saving to database:", error);
       
       let errorMessage = "Erro ao processar sua inscrição. Tente novamente.";
-      if (error.code === '23505') {
+      if (typeof error === 'object' && error !== null && 'code' in error && error.code === '23505') {
         errorMessage = "Este e-mail já está cadastrado em nossa lista de espera.";
       }
       
