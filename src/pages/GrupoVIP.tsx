@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { useFacebookPixel } from "@/hooks/useFacebookPixel";
 import {
   Users,
   Zap,
@@ -20,15 +21,23 @@ import {
 
 const GrupoVIP = () => {
   const whatsappLink = "https://chat.whatsapp.com/FCQds4ezSZq92BGXnaND2E";
+  const { trackWhatsAppClick } = useFacebookPixel();
+
+  // Handler para clique manual no botão
+  const handleWhatsAppClick = () => {
+    trackWhatsAppClick();
+    window.open(whatsappLink, "_blank");
+  };
 
   // Redirecionamento automático após 3 segundos
   useEffect(() => {
     const timer = setTimeout(() => {
+      trackWhatsAppClick();
       window.location.href = whatsappLink;
     }, 3000); // 3 segundos
 
     return () => clearTimeout(timer);
-  }, [whatsappLink]);
+  }, [whatsappLink, trackWhatsAppClick]);
 
   const prompts = [
     { block: "PESQUISA E ANÁLISE", title: "Concorrentes", desc: "Pesquise 5 principais concorrentes e gere relatório comparativo" },
@@ -107,10 +116,8 @@ const GrupoVIP = () => {
           </p>
 
           {/* Botão WhatsApp - DESTAQUE MÁXIMO */}
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={handleWhatsAppClick}
             className="inline-flex items-center justify-center gap-3 w-full max-w-md mx-auto px-8 py-5 text-lg font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-8 relative overflow-hidden"
           >
             {/* Shine effect - brilho passando continuamente */}
@@ -118,7 +125,7 @@ const GrupoVIP = () => {
             <MessageCircle className="w-6 h-6" />
             ENTRAR NO GRUPO VIP GRATUITO
             <ArrowRight className="w-6 h-6" />
-          </a>
+          </button>
 
           {/* Aviso de redirecionamento automático */}
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground bg-primary/5 rounded-lg p-3 max-w-md mx-auto border border-primary/10">
@@ -418,10 +425,8 @@ const GrupoVIP = () => {
 
         {/* CTA Final */}
         <div className="text-center pb-8">
-          <a
-            href={whatsappLink}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            onClick={handleWhatsAppClick}
             className="inline-flex items-center justify-center gap-3 w-full max-w-md mx-auto px-8 py-5 text-lg font-semibold bg-green-600 hover:bg-green-700 text-white rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 mb-6 relative overflow-hidden"
           >
             {/* Shine effect - brilho passando continuamente */}
@@ -429,7 +434,7 @@ const GrupoVIP = () => {
             <MessageCircle className="w-6 h-6" />
             QUERO ENTRAR NO GRUPO AGORA
             <ArrowRight className="w-6 h-6" />
-          </a>
+          </button>
 
           <p className="text-xs md:text-sm text-muted-foreground mb-4">
             🎁 <strong>Gratuito</strong> • Sem spam • Cancele quando quiser
