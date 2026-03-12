@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { Button } from "@/components/ui/button";
+import React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { useFacebookPixel } from "@/hooks/useFacebookPixel";
@@ -12,9 +11,7 @@ import {
   TrendingUp,
   Clock,
   Sparkles,
-  Video,
   FileText,
-  Lightbulb,
   Rocket,
   MessageCircle
 } from "lucide-react";
@@ -29,64 +26,59 @@ const GrupoVIP = () => {
     window.open(whatsappLink, "_blank");
   };
 
-  // Redirecionamento automático após 3 segundos
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      trackWhatsAppClick();
-      window.location.href = whatsappLink;
-    }, 3000); // 3 segundos
-
-    return () => clearTimeout(timer);
-  }, [whatsappLink, trackWhatsAppClick]);
-
-  const prompts = [
-    { block: "PESQUISA E ANÁLISE", title: "Concorrentes", desc: "Pesquise 5 principais concorrentes e gere relatório comparativo" },
-    { block: "PESQUISA E ANÁLISE", title: "Pesquisa de Mercado", desc: "Identifique tendências, oportunidades e desafios do setor" },
-    { block: "PESQUISA E ANÁLISE", title: "Tendências", desc: "Liste novas tecnologias e mudanças no comportamento do consumidor" },
-    { block: "PESQUISA E ANÁLISE", title: "Análise de Oportunidades", desc: "Estratégias de crescimento para pequenas e médias empresas" },
-
-    { block: "DADOS E RELATÓRIOS", title: "Análise de Planilha", desc: "Identifique padrões, inconsistências e oportunidades de melhoria" },
-    { block: "DADOS E RELATÓRIOS", title: "Relatório Executivo", desc: "Crie relatório com descobertas, indicadores e recomendações" },
-    { block: "DADOS E RELATÓRIOS", title: "Insights de Dados", desc: "Três principais insights estratégicos para tomada de decisão" },
-    { block: "DADOS E RELATÓRIOS", title: "Dashboard", desc: "Organize dados em estrutura de dashboard para análise rápida" },
-
-    { block: "DOCUMENTOS E PROPOSTAS", title: "Proposta Comercial", desc: "Crie proposta com análise, estratégia, cronograma e investimento" },
-    { block: "DOCUMENTOS E PROPOSTAS", title: "Plano de Marketing", desc: "Estratégias de aquisição, canais e cronograma de execução" },
-    { block: "DOCUMENTOS E PROPOSTAS", title: "Relatório Estratégico", desc: "Documento profissional estruturado para apresentação" },
-    { block: "DOCUMENTOS E PROPOSTAS", title: "Apresentação", desc: "Apresentação estratégica com análise e recomendações" },
-
-    { block: "PRODUTIVIDADE", title: "Planejamento Semanal", desc: "Plano de tarefas: marketing, vendas, operação e resultados" },
-    { block: "PRODUTIVIDADE", title: "Organização de Tarefas", desc: "Classifique tarefas por prioridade e impacto" },
-    { block: "PRODUTIVIDADE", title: "Agenda Estratégica", desc: "Equilibre estratégia, operação e crescimento do negócio" },
-
-    { block: "CONTEÚDO", title: "Ideias de Conteúdo", desc: "10 ideias para redes sociais com foco educativo" },
-    { block: "CONTEÚDO", title: "Calendário Editorial", desc: "Calendário mensal com tipos de conteúdo e frequência" },
-
-    { block: "NEGÓCIOS", title: "Cliente Ideal", desc: "Defina perfil demográfico, dores e motivações de compra" },
-    { block: "NEGÓCIOS", title: "Proposta de Valor", desc: "Crie uma proposta de valor clara e diferenciada" },
-    { block: "NEGÓCIOS", title: "Plano de Crescimento", desc: "Expansão, melhorias operacionais e aquisição de clientes" }
+  const exemplosDestaque = [
+    {
+      category: "Pesquisa",
+      title: "Análise de concorrentes",
+      desc: "Mapeie posicionamento, ofertas e oportunidades com muito mais rapidez."
+    },
+    {
+      category: "Dados",
+      title: "Análise de planilhas",
+      desc: "Encontre padrões, inconsistências e insights acionáveis sem depender de trabalho manual."
+    },
+    {
+      category: "Relatórios",
+      title: "Dashboards e relatórios",
+      desc: "Estruture conclusões e indicadores de forma mais clara para tomar melhores decisões."
+    },
+    {
+      category: "Vendas",
+      title: "Propostas comerciais",
+      desc: "Monte estratégia, escopo e cronograma com muito menos retrabalho."
+    },
+    {
+      category: "Conteúdo",
+      title: "Landing pages e materiais",
+      desc: "Organize oferta, copy e estrutura de páginas e documentos com mais velocidade."
+    },
+    {
+      category: "Operação",
+      title: "Agenda, e-mails e rotina",
+      desc: "Resuma informações importantes e organize prioridades do negócio no dia a dia."
+    }
   ];
 
   const beneficios = [
     {
-      icon: Gift,
-      title: "100% Gratuito",
-      description: "Sem taxas, sem surpresas. Conteúdo de valor real sem custo algum."
+      icon: Clock,
+      title: "Mais Produtividade",
+      description: "Economize tempo em pesquisas, análises, relatórios e tarefas operacionais." 
     },
     {
-      icon: Video,
-      title: "Vídeos Exclusivos",
-      description: "Tutoriais profundos e demonstrações práticas que você não encontra em outro lugar."
+      icon: Zap,
+      title: "Mais Velocidade",
+      description: "Use estruturas prontas para sair da tela em branco e executar com mais rapidez."
     },
     {
       icon: FileText,
-      title: "Pack de 20 Prompts",
-      description: "Prompts prontos para automações que economizam horas do seu dia."
+      title: "Aplicações Reais",
+      description: "Veja exemplos próximos de como usar agentes em negócios, não só teoria."
     },
     {
-      icon: Lightbulb,
-      title: "Insights Diários",
-      description: "Dicas, casos de uso e estratégias testadas na prática."
+      icon: Gift,
+      title: "Entrada Gratuita",
+      description: "Entre no grupo, receba o pack inicial e acompanhe os próximos materiais."
     }
   ];
 
@@ -99,20 +91,21 @@ const GrupoVIP = () => {
           <div className="inline-flex items-center gap-2 bg-gradient-primary/10 border border-primary/20 rounded-full px-4 py-2 mb-6">
             <TrendingUp className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium text-primary">
-              Grupo crescendo a cada dia 🔥
+              Produtividade real com agentes de IA
             </span>
           </div>
 
           <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-            Laboratório de{" "}
+            Ganhe mais{" "}
             <span className="bg-gradient-primary bg-clip-text text-transparent">
-              Agentes de IA
+              velocidade e produtividade
             </span>
+            <br className="hidden md:block" /> com agentes de IA
           </h1>
 
           <p className="text-base md:text-xl text-muted-foreground mb-6 leading-relaxed">
-            Empresários estão usando IA para tarefas reais.
-            <span className="text-primary font-medium"> Junte-se ao grupo que mais cresce!</span>
+            Entre no grupo e receba gratuitamente prompts e exemplos reais para pesquisar concorrentes,
+            analisar dados, criar propostas e organizar tarefas com menos retrabalho.
           </p>
 
           {/* Botão WhatsApp - DESTAQUE MÁXIMO */}
@@ -123,40 +116,40 @@ const GrupoVIP = () => {
             {/* Shine effect - brilho passando continuamente */}
             <span className="absolute inset-0 -translate-x-full animate-[shine_2s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <MessageCircle className="w-6 h-6" />
-            ENTRAR NO GRUPO VIP GRATUITO
+            ENTRAR NO GRUPO E RECEBER O PACK
             <ArrowRight className="w-6 h-6" />
           </button>
 
-          {/* Aviso de redirecionamento automático */}
+          {/* Mensagem de direcionamento */}
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground bg-primary/5 rounded-lg p-3 max-w-md mx-auto border border-primary/10">
             <Clock className="w-4 h-4 text-primary" />
-            <span>Você será redirecionado para o grupo em <strong className="text-primary">3 segundos</strong>...</span>
+            <span>Grupo gratuito • pack inicial • exemplos reais de uso em negócios</span>
           </div>
 
           {/* Micro-prova social */}
           <div className="flex flex-wrap items-center justify-center gap-4 text-xs md:text-sm text-muted-foreground mb-8">
             <div className="flex items-center gap-1.5">
               <Users className="w-4 h-4" />
-              <span>Comunidade ativa</span>
+              <span>Para empresários e equipes</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Zap className="w-4 h-4" />
-              <span>Conteúdo semanal</span>
+              <span>Aplicações práticas</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Gift className="w-4 h-4" />
-              <span>100% gratuito</span>
+              <span>Entrada gratuita</span>
             </div>
           </div>
 
-          {/* Mensagem do Anúncio */}
+          {/* Mensagem principal */}
           <Card className="bg-gradient-card border-border shadow-card mb-8 max-w-2xl mx-auto">
             <CardContent className="p-5 md:p-6">
               <div className="flex items-start gap-3">
                 <MessageCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                 <div className="text-left">
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-3">
-                    <strong className="text-foreground">Empresários estão usando agentes de IA para:</strong>
+                    <strong className="text-foreground">No grupo você vai encontrar aplicações como:</strong>
                   </p>
                   <ul className="grid grid-cols-2 gap-2 text-xs md:text-sm text-muted-foreground mb-3">
                     <li className="flex items-center gap-1.5">
@@ -165,20 +158,21 @@ const GrupoVIP = () => {
                     </li>
                     <li className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5 text-success flex-shrink-0" />
-                      Analisar dados
+                      Analisar planilhas e dados
                     </li>
                     <li className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5 text-success flex-shrink-0" />
-                      Criar relatórios
+                      Criar propostas e relatórios
                     </li>
                     <li className="flex items-center gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5 text-success flex-shrink-0" />
-                      Gerar propostas
+                      Organizar tarefas e rotina
                     </li>
                   </ul>
                   <p className="text-sm md:text-base text-foreground font-medium">
-                    Mostro exemplos reais no laboratório.
-                    <span className="text-primary ml-1">Quem entra recebe 20 prompts de automação!</span>
+                    O foco é simples: mostrar usos práticos que ajudam você a ganhar tempo,
+                    ter mais clareza e aumentar a produtividade do negócio.
+                    <span className="text-primary ml-1">Ao entrar, você recebe gratuitamente o pack inicial e acompanha os próximos exemplos.</span>
                   </p>
                 </div>
               </div>
@@ -207,157 +201,37 @@ const GrupoVIP = () => {
           })}
         </div>
 
-        {/* Preview dos 20 Prompts */}
+        {/* Preview de usos e materiais */}
         <div className="mb-12 md:mb-16">
           <div className="text-center mb-8 md:mb-10">
             <Badge variant="secondary" className="mb-3 md:mb-4 px-3 md:px-4 py-1.5 md:py-2">
               <Sparkles className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1.5 md:mr-2" />
-              Bônus de Entrada
+              O que você vai encontrar
             </Badge>
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-3 md:mb-4">
-              Pack <span className="text-primary">APEX7AI LYNX</span>
+              Exemplos práticos para <span className="text-primary">aplicar no negócio</span>
             </h2>
-            <p className="text-sm md:text-base text-muted-foreground max-w-2xl mx-auto px-4 mb-2">
-              <strong className="text-foreground">20 PROMPTS DE AUTOMAÇÃO</strong>
-            </p>
             <p className="text-xs md:text-sm text-muted-foreground max-w-2xl mx-auto px-4">
-              Para Empresários Digitais — Exemplos reais de tarefas executadas por agentes de IA
+              Você não vai encontrar só teoria. Estes são alguns dos usos que já estamos mostrando
+              e expandindo com novos conteúdos.
             </p>
           </div>
 
-          {/* Blocos de Prompts */}
-          <div className="space-y-8 md:space-y-10">
-            {/* BLOCO 1 */}
-            <div>
-              <h3 className="text-sm md:text-base font-semibold text-primary mb-3 flex items-center gap-2">
-                <span className="w-6 h-6 md:w-8 md:h-8 bg-primary/10 rounded-full flex items-center justify-center text-xs md:text-sm">1</span>
-                PESQUISA E ANÁLISE
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-                {prompts.filter(p => p.block === "PESQUISA E ANÁLISE").map((prompt, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-card border border-border rounded-lg p-3 md:p-4 hover:border-primary/50 transition-all duration-300"
-                  >
-                    <div className="mb-2">
-                      <span className="text-xs font-bold text-primary">#{index + 1}</span>
-                    </div>
-                    <h4 className="text-sm md:text-base font-semibold mb-1">{prompt.title}</h4>
-                    <p className="text-xs text-muted-foreground">{prompt.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* BLOCO 2 */}
-            <div>
-              <h3 className="text-sm md:text-base font-semibold text-primary mb-3 flex items-center gap-2">
-                <span className="w-6 h-6 md:w-8 md:h-8 bg-primary/10 rounded-full flex items-center justify-center text-xs md:text-sm">2</span>
-                DADOS E RELATÓRIOS
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-                {prompts.filter(p => p.block === "DADOS E RELATÓRIOS").map((prompt, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-card border border-border rounded-lg p-3 md:p-4 hover:border-primary/50 transition-all duration-300"
-                  >
-                    <div className="mb-2">
-                      <span className="text-xs font-bold text-primary">#{index + 5}</span>
-                    </div>
-                    <h4 className="text-sm md:text-base font-semibold mb-1">{prompt.title}</h4>
-                    <p className="text-xs text-muted-foreground">{prompt.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* BLOCO 3 */}
-            <div>
-              <h3 className="text-sm md:text-base font-semibold text-primary mb-3 flex items-center gap-2">
-                <span className="w-6 h-6 md:w-8 md:h-8 bg-primary/10 rounded-full flex items-center justify-center text-xs md:text-sm">3</span>
-                DOCUMENTOS E PROPOSTAS
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-                {prompts.filter(p => p.block === "DOCUMENTOS E PROPOSTAS").map((prompt, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-card border border-border rounded-lg p-3 md:p-4 hover:border-primary/50 transition-all duration-300"
-                  >
-                    <div className="mb-2">
-                      <span className="text-xs font-bold text-primary">#{index + 9}</span>
-                    </div>
-                    <h4 className="text-sm md:text-base font-semibold mb-1">{prompt.title}</h4>
-                    <p className="text-xs text-muted-foreground">{prompt.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* BLOCO 4 */}
-            <div>
-              <h3 className="text-sm md:text-base font-semibold text-primary mb-3 flex items-center gap-2">
-                <span className="w-6 h-6 md:w-8 md:h-8 bg-primary/10 rounded-full flex items-center justify-center text-xs md:text-sm">4</span>
-                PRODUTIVIDADE
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-                {prompts.filter(p => p.block === "PRODUTIVIDADE").map((prompt, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-card border border-border rounded-lg p-3 md:p-4 hover:border-primary/50 transition-all duration-300"
-                  >
-                    <div className="mb-2">
-                      <span className="text-xs font-bold text-primary">#{index + 13}</span>
-                    </div>
-                    <h4 className="text-sm md:text-base font-semibold mb-1">{prompt.title}</h4>
-                    <p className="text-xs text-muted-foreground">{prompt.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* BLOCO 5 */}
-            <div>
-              <h3 className="text-sm md:text-base font-semibold text-primary mb-3 flex items-center gap-2">
-                <span className="w-6 h-6 md:w-8 md:h-8 bg-primary/10 rounded-full flex items-center justify-center text-xs md:text-sm">5</span>
-                CONTEÚDO
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-                {prompts.filter(p => p.block === "CONTEÚDO").map((prompt, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-card border border-border rounded-lg p-3 md:p-4 hover:border-primary/50 transition-all duration-300"
-                  >
-                    <div className="mb-2">
-                      <span className="text-xs font-bold text-primary">#{index + 16}</span>
-                    </div>
-                    <h4 className="text-sm md:text-base font-semibold mb-1">{prompt.title}</h4>
-                    <p className="text-xs text-muted-foreground">{prompt.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* BLOCO 6 */}
-            <div>
-              <h3 className="text-sm md:text-base font-semibold text-primary mb-3 flex items-center gap-2">
-                <span className="w-6 h-6 md:w-8 md:h-8 bg-primary/10 rounded-full flex items-center justify-center text-xs md:text-sm">6</span>
-                NEGÓCIOS
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-                {prompts.filter(p => p.block === "NEGÓCIOS").map((prompt, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-card border border-border rounded-lg p-3 md:p-4 hover:border-primary/50 transition-all duration-300"
-                  >
-                    <div className="mb-2">
-                      <span className="text-xs font-bold text-primary">#{index + 18}</span>
-                    </div>
-                    <h4 className="text-sm md:text-base font-semibold mb-1">{prompt.title}</h4>
-                    <p className="text-xs text-muted-foreground">{prompt.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            {exemplosDestaque.map((exemplo, index) => (
+              <Card
+                key={index}
+                className="bg-gradient-card border-border shadow-card hover:border-primary/40 transition-all duration-300"
+              >
+                <CardContent className="p-4 md:p-5 text-left">
+                  <span className="inline-flex items-center rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-primary mb-3">
+                    {exemplo.category}
+                  </span>
+                  <h3 className="text-sm md:text-base font-semibold mb-2">{exemplo.title}</h3>
+                  <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{exemplo.desc}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
           {/* Dica de Ouro */}
@@ -368,10 +242,10 @@ const GrupoVIP = () => {
                   <span className="text-lg">💡</span>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-amber-600 mb-2">DICA DE OURO</h4>
+                  <h4 className="font-semibold text-amber-600 mb-2">O mais importante</h4>
                   <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                    Embora estes prompts funcionem em IAs genéricas, utilizá-los na plataforma <strong className="text-primary">Apex7AI Lynx</strong> eleva a qualidade dos resultados a outro nível.
-                    Nossos agentes têm contexto otimizado para negócios, garantindo respostas mais precisas, analíticas e prontas para o mundo real.
+                    Você não entra só para ver prompts soltos. Você entra para acompanhar usos reais,
+                    materiais práticos e exemplos próximos de como aplicar agentes de IA no contexto do seu negócio.
                   </p>
                 </div>
               </div>
@@ -379,13 +253,13 @@ const GrupoVIP = () => {
           </Card>
         </div>
 
-        {/* O que você vai receber */}
+        {/* O que você recebe ao entrar */}
         <Card className="bg-gradient-primary/5 border-primary/20 mb-12 md:mb-16">
           <CardContent className="p-6 md:p-10 md:p-12">
             <div className="text-center mb-6 md:mb-8">
               <Rocket className="w-10 h-10 md:w-12 md:h-12 text-primary mx-auto mb-3 md:mb-4" />
               <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-3 md:mb-4">
-                Por que entrar agora?
+                O que você recebe ao entrar
               </h2>
             </div>
 
@@ -394,9 +268,9 @@ const GrupoVIP = () => {
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-3">
                   <Clock className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
-                <h3 className="text-sm md:text-base font-semibold mb-2">Acesso Imediato</h3>
+                <h3 className="text-sm md:text-base font-semibold mb-2">Pack Inicial</h3>
                 <p className="text-xs md:text-sm text-muted-foreground">
-                  Entre agora e receba o pack de prompts instantaneamente.
+                  Acesso ao material inicial com prompts e exemplos que já estão em uso.
                 </p>
               </div>
 
@@ -404,9 +278,9 @@ const GrupoVIP = () => {
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-3">
                   <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
-                <h3 className="text-sm md:text-base font-semibold mb-2">Grupo em Crescimento</h3>
+                <h3 className="text-sm md:text-base font-semibold mb-2">Aplicação Prática</h3>
                 <p className="text-xs md:text-sm text-muted-foreground">
-                  Cada dia mais empresários se juntam. Quanto antes entrar, mais valor você captura.
+                  Conteúdos próximos da prática para usar IA com mais produtividade e clareza.
                 </p>
               </div>
 
@@ -414,9 +288,9 @@ const GrupoVIP = () => {
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 md:mb-3">
                   <Gift className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                 </div>
-                <h3 className="text-sm md:text-base font-semibold mb-2">Conteúdo Gratuito</h3>
+                <h3 className="text-sm md:text-base font-semibold mb-2">Próximos Materiais</h3>
                 <p className="text-xs md:text-sm text-muted-foreground">
-                  Sem vendas, sem upsells. Apenas conteúdo de valor real para sua empresa.
+                  Quem estiver no grupo acompanha novos exemplos e condições especiais quando abrirmos.
                 </p>
               </div>
             </div>
@@ -432,12 +306,12 @@ const GrupoVIP = () => {
             {/* Shine effect - brilho passando continuamente */}
             <span className="absolute inset-0 -translate-x-full animate-[shine_2s_ease-in-out_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent" />
             <MessageCircle className="w-6 h-6" />
-            QUERO ENTRAR NO GRUPO AGORA
+            QUERO RECEBER O PACK NO GRUPO
             <ArrowRight className="w-6 h-6" />
           </button>
 
           <p className="text-xs md:text-sm text-muted-foreground mb-4">
-            🎁 <strong>Gratuito</strong> • Sem spam • Cancele quando quiser
+            🎁 <strong>Gratuito para entrar</strong> • Pack inicial • Exemplos reais de uso
           </p>
 
           {/* Rodapé da Marca */}
@@ -446,7 +320,7 @@ const GrupoVIP = () => {
               Oferecimento: <strong className="text-primary">Apex7AI Agent Lynx</strong>
             </p>
             <p className="text-xs text-muted-foreground">
-              O futuro da gestão inteligente e automação de processos.
+              Agentes de IA aplicados à produtividade, operação e crescimento do negócio.
             </p>
           </div>
         </div>
